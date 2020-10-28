@@ -5,17 +5,17 @@ class GroupDetail extends Component {
     super(props);
     this.state = {
       group: {
-        第一组: [],
-        第二组: [],
-        第三组: [],
-        第四组: [],
-        第五组: [],
-        第六组: [],
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
       },
     };
   }
 
-  async getGroups() {
+  async componentDidMount() {
     try {
       const data = await fetch('http://localhost:8080/groups', {
         method: 'GET',
@@ -29,18 +29,32 @@ class GroupDetail extends Component {
     }
   }
 
+  async getGroups() {
+    try {
+      const data = await fetch('http://localhost:8080/groups', {
+        method: 'POST',
+        mode: 'cors',
+      });
+      const result = await data.json();
+      console.log(JSON.stringify(result));
+      this.setState({ group: result });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   render() {
-    const groupTypeMap = ['第一组', '第二组', '第三组', '第四组', '第五组', '第六组'];
+    const groupTypeMap = [1, 2, 3, 4, 5, 6];
     return (
       <div className="Group">
         <h2>分组列表</h2>
         <button type="button" onClick={this.getGroups.bind(this)}>
           分组学员
         </button>
-        <div hidden={this.state.group['第一组'].length === 0}>
+        <div hidden={this.state.group[1].length === 0}>
           {groupTypeMap.map((obj) => (
-            <div>
-              <div key={obj}>{obj}</div>
+            <div key={obj}>
+              <div>{obj}组</div>
               <div>
                 {this.state.group[obj].map((item) => (
                   <div key={item.id}>

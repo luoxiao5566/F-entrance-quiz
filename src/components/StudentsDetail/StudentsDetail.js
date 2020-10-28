@@ -4,7 +4,7 @@ class StudentsDetail extends Component {
   render() {
     return (
       <div className="studentDetail">
-        <h2>分组列表</h2>
+        <h2>学生列表</h2>
         <div className="student">
           {this.props.students.map((item) => (
             <div key={item.id}>
