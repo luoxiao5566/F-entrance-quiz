@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
-import 'regenerator-runtime/runtime';
 import GroupDetail from '../components/GroupDetail/GroupDetail';
 import StudentsDetail from '../components/StudentsDetail/StudentsDetail';
-
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: [       
-      ],
+      students: [],
     };
   }
 
   async componentDidMount() {
     try {
-      const data = await fetch("http://localhost:8080/students",{
-        method:"GET",
-        mode:"cors"
+      const data = await fetch('http://localhost:8080/students', {
+        method: 'GET',
+        mode: 'cors',
       });
       const result = await data.json();
       console.log(JSON.stringify(result));

@@ -5,20 +5,21 @@ class GroupDetail extends Component {
     super(props);
     this.state = {
       group: {
-        第一组:[],
-        第二组:[],
-        第三组:[],
-        第四组:[],
-        第五组:[],
-        第六组:[]
+        第一组: [],
+        第二组: [],
+        第三组: [],
+        第四组: [],
+        第五组: [],
+        第六组: [],
       },
     };
   }
+
   async getGroups() {
     try {
-      const data = await fetch("http://localhost:8080/groups",{
-        method:"GET",
-        mode:"cors"
+      const data = await fetch('http://localhost:8080/groups', {
+        method: 'GET',
+        mode: 'cors',
       });
       const result = await data.json();
       console.log(JSON.stringify(result));
@@ -27,49 +28,29 @@ class GroupDetail extends Component {
       console.log(err);
     }
   }
+
   render() {
+    const groupTypeMap = ['第一组', '第二组', '第三组', '第四组', '第五组', '第六组'];
     return (
       <div className="Group">
         <h2>分组列表</h2>
-        <button type="button" onClick={this.getGroups.bind(this)}>分组学员</button> 
-        <div>
-          <div>第一组</div>     
-          {this.state.group['第一组'].map((item) => (
-            <div key={item.id}>
-              {item.id}.{item.name}
+        <button type="button" onClick={this.getGroups.bind(this)}>
+          分组学员
+        </button>
+        <div hidden={this.state.group['第一组'].length === 0}>
+          {groupTypeMap.map((obj) => (
+            <div>
+              <div key={obj}>{obj}</div>
+              <div>
+                {this.state.group[obj].map((item) => (
+                  <div key={item.id}>
+                    {item.id}.{item.name}
+                  </div>
+                ))}
+              </div>
             </div>
-          ))} 
-          <div>第二组</div>     
-          {this.state.group['第二组'].map((item) => (
-            <div key={item.id}>
-              {item.id}.{item.name}
-            </div>
-          ))} 
-          <div>第三组</div>     
-          {this.state.group['第三组'].map((item) => (
-            <div key={item.id}>
-              {item.id}.{item.name}
-            </div>
-          ))} 
-          <div>第四组</div>     
-          {this.state.group['第四组'].map((item) => (
-            <div key={item.id}>
-              {item.id}.{item.name}
-            </div>
-          ))} 
-          <div>第五组</div>     
-          {this.state.group['第五组'].map((item) => (
-            <div key={item.id}>
-              {item.id}.{item.name}
-            </div>
-          ))} 
-          <div>第六组</div>     
-          {this.state.group['第六组'].map((item) => (
-            <div key={item.id}>
-              {item.id}.{item.name}
-            </div>
-          ))} 
-        </div>        
+          ))}
+        </div>
       </div>
     );
   }
